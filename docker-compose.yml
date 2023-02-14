@@ -1,0 +1,35 @@
+version : "3"
+
+services:
+  wordpress:
+    image: wordpress
+    volumes: 
+      - wordpress_files:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8060:80"
+
+  db:
+    image: mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mypass
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    restart: always
+
+volumes:
+  wordpress_files:
+  db_data:
+
+
+
